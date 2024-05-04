@@ -4,12 +4,10 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.aplicacionmovilinesmr.data.repositories.AuthRepository
-import com.example.aplicacionmovilinesmr.data.repositories.UbiRepository
 import com.example.aplicacionmovilinesmr.data.sources.remote.AuthService
 import com.example.aplicacionmovilinesmr.data.sources.remote.UbiService
+import com.google.gson.GsonBuilder
 import com.squareup.moshi.Moshi
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
@@ -42,6 +41,11 @@ object NetworkModule {
 
     @Singleton
     @Provides
+    fun provideConverterFactory(): GsonConverterFactory =
+        GsonConverterFactory.create(GsonBuilder().setLenient().create())
+
+    @Singleton
+    @Provides
     fun provideConverterMoshiFactory(): MoshiConverterFactory {
         val moshi = Moshi.Builder()
             .build()
@@ -54,12 +58,15 @@ object NetworkModule {
     @Provides
     fun provideRetrofitAuth(
         okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory
+        moshiConverterFactory: MoshiConverterFactory,
+        gsonConverterFactory: GsonConverterFactory,
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.138:8081/auth/")
+            //.baseUrl("http://192.168.1.138:8081/auth/")
+            .baseUrl("http://192.168.22.104:8081/auth/")
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
+            .addConverterFactory(gsonConverterFactory)
             .build()
     }
 
@@ -71,7 +78,8 @@ object NetworkModule {
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.138:8081/ubi/")
+            //.baseUrl("http://192.168.1.138:8081/ubi/")
+            .baseUrl("http://192.168.22.104:8081/ubi/")
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()

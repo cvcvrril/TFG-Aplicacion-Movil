@@ -1,6 +1,7 @@
 package com.example.aplicacionmovilinesmr.data.repositories
 
 import com.example.aplicacionmovilinesmr.data.sources.remote.AuthRemoteDataSource
+import com.example.aplicacionmovilinesmr.domain.modelo.Credential
 import com.example.aplicacionmovilinesmr.utils.NetworkResult
 import com.example.aprobarines.data.modelo.response.AuthorizacionResponse
 import dagger.hilt.android.scopes.ActivityRetainedScoped
@@ -22,9 +23,16 @@ class AuthRepository @Inject constructor(
             emit(NetworkResult.Loading())
             val res = remoteDataSource.login(username, password)
             emit(res)
-        }.flowOn(dispatcher )
+        }.flowOn(dispatcher)
 
     }
 
+    fun registro(credential: Credential) : Flow<NetworkResult<Unit>>{
+        return flow {
+            emit(NetworkResult.Loading())
+            val res = remoteDataSource.registro(credential)
+            emit(res)
+        }.flowOn(dispatcher)
+    }
 
 }

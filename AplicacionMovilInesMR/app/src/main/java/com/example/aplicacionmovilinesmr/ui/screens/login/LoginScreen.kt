@@ -1,6 +1,5 @@
 package com.example.aplicacionmovilinesmr.ui.screens.login
 
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,13 +20,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import kotlin.reflect.KFunction1
 
 @Composable
 fun LoginScreen(
+    navController: NavController,
     viewModel: LoginViewModel = hiltViewModel(),
     onLogin: () -> Unit,
 ) {
@@ -35,12 +37,14 @@ fun LoginScreen(
 
     OnLogin(
         state = state.value,
-        handleEvent = viewModel::handleEvent)
-
+        handleEvent = viewModel::handleEvent,
+        navController = navController,
+    )
 }
 
 @Composable
 fun OnLogin(
+    navController: NavController,
     state: LoginState,
     handleEvent: KFunction1<LoginEvent, Unit>,
 ) {
@@ -65,7 +69,7 @@ fun OnLogin(
                 .background(Color.Gray),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
+        ) {
             Text(text = "Login")
             Spacer(modifier = Modifier.height(30.dp))
             TextField(
@@ -80,13 +84,23 @@ fun OnLogin(
                 value = state.password ?: "",
                 onValueChange = { valueIntroduced ->
                     handleEvent(LoginEvent.OnPasswordChange(valueIntroduced))
-                })
+                },
+                visualTransformation = PasswordVisualTransformation()
+            )
             Spacer(modifier = Modifier.height(30.dp))
             Button(
                 onClick = {
                     handleEvent(LoginEvent.Login())
                 }) {
                 Text(text = "Login")
+            }
+            Text("¿No tienes una cuenta?")
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(
+                onClick = {
+                    navController.navigate("registro")
+                }) {
+                Text(text = "Ir al Registro")
             }
 
         }

@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.aplicacionmovilinesmr.ui.screens.login.LoginScreen
+import com.example.aplicacionmovilinesmr.ui.screens.registro.RegistroScreen
 
 
 @Composable
@@ -26,7 +27,15 @@ fun Navigation() {
                         inclusive = true
                     }
                 }
-            })
+            },
+                navController = navController)
+        }
+        composable(
+            "registro"
+        ) {
+            RegistroScreen(navController = navController) {
+                
+            }
         }
     }
 }
