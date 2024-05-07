@@ -1,13 +1,12 @@
 package com.example.apollo_davidroldan.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.aplicacionmovilinesmr.ui.screens.login.LoginScreen
 import com.example.aplicacionmovilinesmr.ui.screens.registro.RegistroScreen
+import com.example.aplicacionmovilinesmr.ui.screens.ubicaciones.UbicacionesScreen
 
 
 @Composable
@@ -21,8 +20,8 @@ fun Navigation() {
         composable(
             "login"
         ) {
-            LoginScreen( onLogin = {
-                navController.navigate("") {
+            LoginScreen( onLoginDone = {
+                navController.navigate("ubicaciones") {
                     popUpTo("login") {
                         inclusive = true
                     }
@@ -36,6 +35,29 @@ fun Navigation() {
             RegistroScreen(navController = navController) {
                 
             }
+        }
+        composable(
+            "mapa"
+        ){
+
+        }
+        composable(
+            "ubicaciones"
+        ){
+
+            UbicacionesScreen(
+                navController = navController)
+
+        }
+        composable(
+            "perfil"
+        ){
+
+        }
+        composable(
+            "config"
+        ){
+
         }
     }
 }

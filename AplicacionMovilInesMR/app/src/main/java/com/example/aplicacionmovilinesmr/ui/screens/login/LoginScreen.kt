@@ -31,7 +31,7 @@ import kotlin.reflect.KFunction1
 fun LoginScreen(
     navController: NavController,
     viewModel: LoginViewModel = hiltViewModel(),
-    onLogin: () -> Unit,
+    onLoginDone: () -> Unit,
 ) {
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -39,6 +39,7 @@ fun LoginScreen(
         state = state.value,
         handleEvent = viewModel::handleEvent,
         navController = navController,
+        onLoginDone = onLoginDone,
     )
 }
 
@@ -47,9 +48,16 @@ fun OnLogin(
     navController: NavController,
     state: LoginState,
     handleEvent: KFunction1<LoginEvent, Unit>,
+    onLoginDone: () -> Unit,
 ) {
 
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(state.login) {
+        if (state.login) {
+            onLoginDone()
+        }
+    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) })

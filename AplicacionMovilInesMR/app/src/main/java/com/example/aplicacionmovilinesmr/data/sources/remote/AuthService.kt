@@ -2,7 +2,6 @@ package com.example.aplicacionmovilinesmr.data.sources.remote
 
 import com.example.aplicacionmovilinesmr.data.modelo.request.CredentialRequest
 import com.example.aprobarines.data.modelo.response.AuthorizacionResponse
-import com.example.aprobarines.data.modelo.response.CredentialResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,5 +17,8 @@ interface AuthService {
 
     @POST("forgotPassword")
     suspend fun forgotPassword(@Query("email") email: String): Response<Unit>
+
+    @GET("refreshToken")
+    suspend fun refreshToken(@Query("token") token: String): Response<Unit>
 
 }

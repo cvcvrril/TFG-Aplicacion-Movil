@@ -6,6 +6,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.aplicacionmovilinesmr.data.sources.remote.AuthService
 import com.example.aplicacionmovilinesmr.data.sources.remote.UbiService
+import com.example.aplicacionmovilinesmr.data.sources.remote.utils.AuthAuthenticator
+import com.example.aplicacionmovilinesmr.data.sources.remote.utils.AuthInterceptor
 import com.google.gson.GsonBuilder
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -29,12 +31,16 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideHttpClient(
+        authInterceptor: AuthInterceptor,
+        authAuthenticator: AuthAuthenticator,
     ): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         return OkHttpClient
             .Builder()
+            .addInterceptor(authInterceptor)
+            .authenticator(authAuthenticator)
             .addInterceptor(loggingInterceptor)
             .build()
     }
@@ -63,7 +69,8 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder()
             //.baseUrl("http://192.168.1.138:8081/auth/")
-            .baseUrl("http://192.168.22.104:8081/auth/")
+            //.baseUrl("http://192.168.22.104:8081/auth/")
+            .baseUrl("http://192.168.104.104:8081/auth/")
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .addConverterFactory(gsonConverterFactory)
@@ -75,11 +82,12 @@ object NetworkModule {
     @Named("ubi")
     fun provideRetrofitUbi(
         okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory
+        moshiConverterFactory: MoshiConverterFactory,
     ): Retrofit {
         return Retrofit.Builder()
-            //.baseUrl("http://192.168.1.138:8081/ubi/")
-            .baseUrl("http://192.168.22.104:8081/ubi/")
+            //.baseUrl("http://192.168.1.138:8082/ubi/")
+            //.baseUrl("http://192.168.22.104:8082/ubi/")
+            .baseUrl("http://192.168.104.104:8082/ubi/")
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()

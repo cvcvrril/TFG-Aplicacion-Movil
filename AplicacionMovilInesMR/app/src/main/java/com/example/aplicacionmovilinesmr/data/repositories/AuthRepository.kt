@@ -1,6 +1,8 @@
 package com.example.aplicacionmovilinesmr.data.repositories
 
 import com.example.aplicacionmovilinesmr.data.sources.remote.AuthRemoteDataSource
+import com.example.aplicacionmovilinesmr.data.sources.remote.managerds.TokenManager
+import com.example.aplicacionmovilinesmr.data.sources.remote.managerds.UserManager
 import com.example.aplicacionmovilinesmr.domain.modelo.Credential
 import com.example.aplicacionmovilinesmr.utils.NetworkResult
 import com.example.aprobarines.data.modelo.response.AuthorizacionResponse
@@ -16,6 +18,8 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(
     private val remoteDataSource: AuthRemoteDataSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val tokenManager: TokenManager,
+    private val userManager: UserManager,
 ) {
 
     fun login(username: String, password: String) : Flow<NetworkResult<AuthorizacionResponse>> {
