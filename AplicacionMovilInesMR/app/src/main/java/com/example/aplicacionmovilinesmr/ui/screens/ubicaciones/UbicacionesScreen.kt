@@ -26,38 +26,37 @@ import kotlinx.coroutines.runBlocking
 
 @Composable
 fun UbicacionesScreen(
-    navController: NavController,
     viewModel: UbicacionesViewModel = hiltViewModel(),
-
+    bottomNavigationBar : @Composable () -> Unit = {},
     ) {
 
     val state = viewModel.uiState.collectAsStateWithLifecycle()
-    //val idUser = runBlocking { userManager.getIdUser().first()?.toInt() }
 
     GetUbicaciones(
         state = state.value,
-        //id = idUser!!
+        bottomNavigationBar = bottomNavigationBar
     )
 
 }
 
 @Composable
 fun GetUbicaciones(
-    //id: Int,
-    state: UbicacionesState
-
+    state: UbicacionesState,
+    bottomNavigationBar : @Composable () -> Unit = {},
 ) {
 
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) })
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        bottomBar = bottomNavigationBar
+    )
     { innerPadding ->
         LaunchedEffect(state.error) {
             state.error?.let {
                 snackbarHostState.showSnackbar(
                     message = state.error,
-                    duration = SnackbarDuration.Short
+                    duration = SnackbarDuration.Short,
                 )
             }
         }

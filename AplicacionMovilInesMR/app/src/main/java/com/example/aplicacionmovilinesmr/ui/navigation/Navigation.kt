@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.aplicacionmovilinesmr.ui.screens.login.LoginScreen
 import com.example.aplicacionmovilinesmr.ui.screens.registro.RegistroScreen
 import com.example.aplicacionmovilinesmr.ui.screens.ubicaciones.UbicacionesScreen
+import com.example.apollo_davidroldan.ui.common.BottomBar
 
 
 @Composable
@@ -32,9 +33,7 @@ fun Navigation() {
         composable(
             "registro"
         ) {
-            RegistroScreen(navController = navController) {
-                
-            }
+            RegistroScreen(navController = navController) {}
         }
         composable(
             "mapa"
@@ -44,9 +43,12 @@ fun Navigation() {
         composable(
             "ubicaciones"
         ){
-
             UbicacionesScreen(
-                navController = navController)
+                navController = navController,
+                bottomNavigationBar = {
+                    BottomBar(navController = navController,
+                        screens = screensBottomBar)
+                })
 
         }
         composable(
