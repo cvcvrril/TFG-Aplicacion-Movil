@@ -99,4 +99,6 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
+
+    implementation("com.tomtom.sdk.maps:map-display:1.2.0")
 }

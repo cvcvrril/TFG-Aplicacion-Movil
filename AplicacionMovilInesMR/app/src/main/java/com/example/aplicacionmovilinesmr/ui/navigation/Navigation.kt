@@ -1,13 +1,16 @@
-package com.example.apollo_davidroldan.ui.navigation
+package com.example.aplicacionmovilinesmr.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.aplicacionmovilinesmr.ui.screens.login.LoginScreen
+import com.example.aplicacionmovilinesmr.ui.screens.perfil.PerfilScreen
 import com.example.aplicacionmovilinesmr.ui.screens.registro.RegistroScreen
 import com.example.aplicacionmovilinesmr.ui.screens.ubicaciones.UbicacionesScreen
 import com.example.apollo_davidroldan.ui.common.BottomBar
+import com.example.apollo_davidroldan.ui.common.ConstantesPantallas
+import com.example.apollo_davidroldan.ui.navigation.screensBottomBar
 
 
 @Composable
@@ -16,14 +19,14 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "login",
+        startDestination = ConstantesPantallas.LOGIN_PANTALLA,
     ) {
         composable(
-            "login"
+            ConstantesPantallas.LOGIN_PANTALLA
         ) {
             LoginScreen( onLoginDone = {
-                navController.navigate("ubicaciones") {
-                    popUpTo("login") {
+                navController.navigate(ConstantesPantallas.UBICACIONES_PANTALLA) {
+                    popUpTo(ConstantesPantallas.LOGIN_PANTALLA) {
                         inclusive = true
                     }
                 }
@@ -31,33 +34,39 @@ fun Navigation() {
                 navController = navController)
         }
         composable(
-            "registro"
+            ConstantesPantallas.REGISTRO_PANTALLA
         ) {
             RegistroScreen(navController = navController) {}
         }
         composable(
-            "mapa"
+            ConstantesPantallas.MAPA_PANTALLA
         ){
 
         }
         composable(
-            "ubicaciones"
+            ConstantesPantallas.UBICACIONES_PANTALLA
         ){
             UbicacionesScreen(
-                navController = navController,
                 bottomNavigationBar = {
                     BottomBar(navController = navController,
-                        screens = screensBottomBar)
+                        screens = screensBottomBar
+                    )
                 })
 
         }
         composable(
-            "perfil"
+            ConstantesPantallas.PERFIL_PANTALLA
         ){
-
+            PerfilScreen (
+                bottomNavigationBar = {
+                    BottomBar(navController = navController,
+                        screens = screensBottomBar
+                    )
+                }
+            )
         }
         composable(
-            "config"
+            ConstantesPantallas.CONFIG_PANTALLA
         ){
 
         }
