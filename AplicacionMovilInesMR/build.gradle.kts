@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.jsoup.safety.Safelist.basic
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id("com.android.application") version "8.2.0" apply false
@@ -15,5 +17,6 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.42")
     }
+
 
 }

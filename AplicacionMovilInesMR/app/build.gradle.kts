@@ -100,5 +100,9 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
 
-    implementation("com.tomtom.sdk.maps:map-display:1.2.0")
+    //implementation("com.tomtom.sdk.maps:map-display:1.2.0")
+
+    //implementation("org.maplibre.gl:android-sdk:9.2.1")
+
+    //implementation("com.mapbox.maps:android:10.14.0")
 }
