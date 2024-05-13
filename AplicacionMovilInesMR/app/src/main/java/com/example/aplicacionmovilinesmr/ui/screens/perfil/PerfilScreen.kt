@@ -3,8 +3,13 @@ package com.example.aplicacionmovilinesmr.ui.screens.perfil
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -61,11 +66,32 @@ fun GetPerfilScreen(
                 .padding(innerPadding)
                 .fillMaxSize()
                 .background(Color.Gray),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Row(
+                
+            ) {
+                Button(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Outlined.Settings,
+                        contentDescription = "Settings"
+                    )
+                }
+            }
+            Text("Aquí iría la pantalla del perfil del usuario")
+        }
+        Column(
+            Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .background(Color.Black),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start,
         ) {
-            Text("Aquí iría la pantalla del perfil del usuario")
+
         }
+
 
 
     }
