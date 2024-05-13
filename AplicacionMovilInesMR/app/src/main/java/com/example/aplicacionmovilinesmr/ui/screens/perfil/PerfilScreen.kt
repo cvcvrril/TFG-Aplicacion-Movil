@@ -27,12 +27,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun PerfilScreen(
     viewModel: PerfilViewModel = hiltViewModel(),
-    bottomNavigationBar : @Composable () -> Unit = {},
+    bottomNavigationBar: @Composable () -> Unit = {},
 ) {
 
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
-    GetPerfilScreen (
+    GetPerfilScreen(
         state = state.value,
         bottomNavigationBar = bottomNavigationBar,
     )
@@ -43,8 +43,8 @@ fun PerfilScreen(
 @Composable
 fun GetPerfilScreen(
     state: PerfilState,
-    bottomNavigationBar : @Composable () -> Unit = {},
-){
+    bottomNavigationBar: @Composable () -> Unit = {},
+) {
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -70,7 +70,11 @@ fun GetPerfilScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
-                
+                Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.Start
             ) {
                 Button(onClick = { /*TODO*/ }) {
                     Icon(
@@ -79,20 +83,18 @@ fun GetPerfilScreen(
                     )
                 }
             }
-            Text("Aquí iría la pantalla del perfil del usuario")
+            Row(
+                Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text("Aquí iría la pantalla del perfil del usuario")
+            }
+
+
         }
-        Column(
-            Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                .background(Color.Black),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start,
-        ) {
-
-        }
-
-
 
     }
 
