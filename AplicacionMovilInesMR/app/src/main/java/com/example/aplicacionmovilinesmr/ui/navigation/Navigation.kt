@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.aplicacionmovilinesmr.ui.screens.login.LoginScreen
+import com.example.aplicacionmovilinesmr.ui.screens.mapa.MapaScreen
 import com.example.aplicacionmovilinesmr.ui.screens.perfil.PerfilScreen
 import com.example.aplicacionmovilinesmr.ui.screens.registro.RegistroScreen
 import com.example.aplicacionmovilinesmr.ui.screens.ubicaciones.UbicacionesScreen
@@ -41,7 +42,12 @@ fun Navigation() {
         composable(
             ConstantesPantallas.MAPA_PANTALLA
         ){
-
+            MapaScreen(
+                bottomNavigationBar = {
+                    BottomBar(navController = navController,
+                        screens = screensBottomBar
+                    )
+                })
         }
         composable(
             ConstantesPantallas.UBICACIONES_PANTALLA

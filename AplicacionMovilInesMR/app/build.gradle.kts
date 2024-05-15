@@ -105,4 +105,6 @@ dependencies {
     //implementation("org.maplibre.gl:android-sdk:9.2.1")
 
     //implementation("com.mapbox.maps:android:10.14.0")
+
+    implementation("org.osmdroid:osmdroid-android:6.1.14")
 }

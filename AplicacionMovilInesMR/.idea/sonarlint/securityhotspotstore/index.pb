@@ -25,3 +25,25 @@ bapp/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/ubicaciones/Ubic
 ^app/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/ubicaciones/UbicacionesState.kt,6\3\63cda167617a1047306699e2f2d8829bfeb84f16
 è
 _app/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/ubicaciones/UbicacionesScreen.kt,2\6\2674d9e9745ea594508e4df89da2301161c9ef5b
+Ö
+Uapp/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/perfil/PerfilScreen.kt,8\0\80ee377a636ab8c6a51a5d435ad4b78664914cbb
+|
+Lapp/src/main/java/com/example/aplicacionmovilinesmr/domain/modelo/Profile.kt,2\4\244064c9cb10934286a99437f0a0e23872800fda
+ã
+[app/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/configscreen/ConfigScreen.kt,4\7\479a2bf8e0a592f697cb41a1310d422cef17c525
+C
+settings.gradle.kts,7\4\749edfcc96398253e5b3416184e95c46621da850
+Ñ
+Tapp/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/perfil/PerfilState.kt,8\3\834c21e8cf706b137c03b2b23d2fa8e71dd19938
+à
+Xapp/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/perfil/PerfilViewModel.kt,6\3\6374eb7365ff90ad6ef7f1e37ef17756841aa822
+Ä
+Papp/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/mapa/MapaState.kt,f\3\f3e503ea1abdfd7bc83575d38045482d63a3d02a
+Ñ
+Tapp/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/mapa/MapaViewModel.kt,0\1\0126c196df84d8a6ce14b25d8abca4ebeb99a78f
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+m
+=app/src/main/java/com/example/aplicacionmovilinesmr/TFGApp.kt,2\1\21dd6cd0ae84d080b957667f03eb9536b2dc8ace
+Å
+Qapp/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/mapa/MapaScreen.kt,c\4\c4b4c64e49a18b492079b4d0444dda96c9ef34ca

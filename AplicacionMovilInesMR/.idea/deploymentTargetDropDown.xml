@@ -2,6 +2,12 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="MapaScreen">
+        <State />
+      </entry>
+      <entry key="PreviewScreen">
+        <State />
+      </entry>
       <entry key="PreviewUbicacionItem">
         <State />
       </entry>
