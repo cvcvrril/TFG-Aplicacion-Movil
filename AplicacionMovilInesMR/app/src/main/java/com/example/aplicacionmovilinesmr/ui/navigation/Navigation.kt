@@ -26,7 +26,7 @@ fun Navigation() {
             ConstantesPantallas.LOGIN_PANTALLA
         ) {
             LoginScreen( onLoginDone = {
-                navController.navigate(ConstantesPantallas.UBICACIONES_PANTALLA) {
+                navController.navigate(ConstantesPantallas.MAPA_PANTALLA) {
                     popUpTo(ConstantesPantallas.LOGIN_PANTALLA) {
                         inclusive = true
                     }
