@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
@@ -133,7 +132,7 @@ fun GetPerfilScreen(
                             Spacer(modifier = Modifier.height(16.dp))
                             DescripcionText(text = state.perfil?.descripcion
                                 ?: ("Hola, esto es una descripción del perfil," +
-                                        " para ver cómo va la cosa, si se ve bien o si se ve como la poronga.")
+                                        " para ver cómo va la cosa, si se ve bien o no.")
                             )
                             Spacer(modifier = Modifier.height(400.dp))
                         }

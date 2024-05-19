@@ -1,11 +1,11 @@
 
-`kotlin:S1172"<Remove this unused function parameter "bottomNavigationBar".(ŽãÊÌøÿÿÿÿ8ÐÜÉî÷1
-=kotlin:S125"Remove this commented out code.(ª¿Œ¨8ÑÜÉî÷1
-Bkotlin:S125"Remove this commented out code.(ŠÙ‚úÿÿÿÿ8ÑÜÉî÷1
-9kotlin:S1128"Remove this unused import.(ŠëÙ 8ÔÜÉî÷1
->kotlin:S1128"Remove this unused import.(‹‚ü†ýÿÿÿÿ8ÔÜÉî÷1
-8kotlin:S1128"Remove this unused import.(†™¹$8ÔÜÉî÷1
->kotlin:S1128	"Remove this unused import.(®‘¿–ûÿÿÿÿ8ÔÜÉî÷1
-8kotlin:S1128"Remove this unused import.(¥€ÈA8ÔÜÉî÷1
-9kotlin:S1128"Remove this unused import.(ÏéûÖ8ÔÜÉî÷1
-Bkotlin:S1874&"#Deprecated code should not be used.(•‘Õö8ÔÜÉî÷1
+Bkotlin:S125N"Remove this commented out code.(ŠÙ‚úÿÿÿÿ8ÔÊ—ø1
+=kotlin:S125Y"Remove this commented out code.(É¾Š8ÔÊ—ø1
+Bkotlin:S125\"Remove this commented out code.(Ñ¦˜çúÿÿÿÿ8ÔÊ—ø1
+qkotlin:S117R"SRename this local variable to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(û¾îÔ8’ÔÊ—ø1
+9kotlin:S1128"Remove this unused import.(ŠëÙ 8˜ÔÊ—ø1
+>kotlin:S1128"Remove this unused import.(‹‚ü†ýÿÿÿÿ8˜ÔÊ—ø1
+8kotlin:S1128"Remove this unused import.(†™¹$8˜ÔÊ—ø1
+>kotlin:S1128"Remove this unused import.(®‘¿–ûÿÿÿÿ8˜ÔÊ—ø1
+Bkotlin:S1874Z"#Deprecated code should not be used.(•‘Õö8™ÔÊ—ø1
+Gkotlin:S1874`"#Deprecated code should not be used.(Ñ¹Öæúÿÿÿÿ8™ÔÊ—ø1
