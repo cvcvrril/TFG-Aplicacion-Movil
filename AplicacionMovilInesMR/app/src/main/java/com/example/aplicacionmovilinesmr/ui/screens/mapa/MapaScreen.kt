@@ -1,5 +1,8 @@
 package com.example.aplicacionmovilinesmr.ui.screens.mapa
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.location.LocationManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +50,7 @@ fun MapaScreen(
 
 
 @Composable
+@SuppressLint("MissingPermission")
 fun GetMapaScreen(
     state: MapaState,
     onAdd: (GeoPoint) -> Unit,
@@ -105,8 +109,19 @@ fun GetMapaScreen(
 
                                 /*TODO: SACAR EL GEOPOINT QUE SE ESTÁ METIENDO -> EJEMPLO EN CASA*/
 
-                                //val newGeoPoint = GeoPoint()
-                                //onAdd(newGeoPoint)
+                                val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                                val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+                                if (location != null) {
+
+                                    val newGeoPoint = GeoPoint(location.latitude, location.longitude)
+                                    onAdd(newGeoPoint)
+                                    //controller.setCenter(GeoPoint(location.latitude, location.longitude))
+                                }
+
+
+
+
                                 return true
                             }
 

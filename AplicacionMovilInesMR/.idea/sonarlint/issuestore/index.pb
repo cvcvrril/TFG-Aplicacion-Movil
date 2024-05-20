@@ -47,3 +47,5 @@ m
 =app/src/main/java/com/example/aplicacionmovilinesmr/TFGApp.kt,2\1\21dd6cd0ae84d080b957667f03eb9536b2dc8ace
 Å
 Qapp/src/main/java/com/example/aplicacionmovilinesmr/ui/screens/mapa/MapaScreen.kt,c\4\c4b4c64e49a18b492079b4d0444dda96c9ef34ca
+v
+Fapp/src/main/java/com/example/aplicacionmovilinesmr/ui/MainActivity.kt,8\1\81b15fb2a5150a37c43c3750b3078b9423e99041

@@ -185,7 +185,7 @@ fun <T : Any> SwipeToDeleteContainer(
         confirmValueChange = { value ->
             if (value == DismissValue.DismissedToStart) {
                 isRemoved = true
-                onDelete(item)
+                //onDelete(item)
                 true
             } else {
                 false
