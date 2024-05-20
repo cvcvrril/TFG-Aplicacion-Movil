@@ -47,6 +47,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.aplicacionmovilinesmr.R
 import com.example.aplicacionmovilinesmr.domain.modelo.dto.UbiDTO
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -59,7 +60,8 @@ fun UbicacionesScreen(
 
     GetUbicaciones(
         state = state.value,
-        bottomNavigationBar = bottomNavigationBar
+        bottomNavigationBar = bottomNavigationBar,
+        onDelete = { viewModel.handleEvent(UbicacionesEvent.DeleteUbicacion(it)) },
     )
 
 }
@@ -68,6 +70,7 @@ fun UbicacionesScreen(
 @Composable
 fun GetUbicaciones(
     state: UbicacionesState,
+    onDelete: (Int) -> Unit,
     bottomNavigationBar: @Composable () -> Unit = {},
 ) {
 
@@ -104,23 +107,23 @@ fun GetUbicaciones(
                     .padding(innerPadding)
                     .fillMaxSize()
             ) {
-                items(items = state.ubicaciones) { ubicacion ->
-                    
+                items(
+                    items = state.ubicaciones,
+                    key = { item -> item.id }
+                ) { ubicacion ->
                     SwipeToDeleteContainer(
                         item = ubicacion,
                         onDelete = {
-                            it.id?.let { it1-> onDelete }
-                        } ) {
-                        
-                    }
-                    
-                    UbicacionItem(
-                        ubi = ubicacion,
-                        modifier = Modifier.animateItemPlacement(
-                            animationSpec = tween(1000)
+                            it.id?.let{it1 -> onDelete(it1)}
+                        }) { ubicacion ->
+                        UbicacionItem(
+                            ubi = ubicacion,
+                            modifier = Modifier.animateItemPlacement(
+                                animationSpec = tween(1000)
+                            )
                         )
-                    )
 
+                    }
                 }
             }
         }
@@ -169,7 +172,7 @@ fun UbicacionItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <T> SwipeToDeleteContainer(
+fun <T : Any> SwipeToDeleteContainer(
     item: T,
     onDelete: (UbiDTO) -> Unit,
     animationDuration: Int = 500,
@@ -182,6 +185,7 @@ fun <T> SwipeToDeleteContainer(
         confirmValueChange = { value ->
             if (value == DismissValue.DismissedToStart) {
                 isRemoved = true
+                onDelete(item)
                 true
             } else {
                 false

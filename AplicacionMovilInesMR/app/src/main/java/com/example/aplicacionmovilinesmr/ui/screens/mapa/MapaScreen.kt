@@ -19,6 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.aplicacionmovilinesmr.domain.modelo.Ubi
+import com.example.aplicacionmovilinesmr.ui.screens.ubicaciones.UbicacionesEvent
 import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -39,14 +41,15 @@ fun MapaScreen(
     GetMapaScreen(
         state = state.value,
         bottomNavigationBar = bottomNavigationBar,
+        onAdd = {viewModel.handleEvent(MapaEvent.AddUbicacion(Ubi(0, it.longitude, it.latitude, 0)))},
     )
-
 }
 
 
 @Composable
 fun GetMapaScreen(
     state: MapaState,
+    onAdd: (GeoPoint) -> Unit,
     bottomNavigationBar: @Composable () -> Unit = {},
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -73,6 +76,11 @@ fun GetMapaScreen(
         ) {
             val DEFAULT_ZOOM = 10
 
+            val ubicaciones = state.ubicaciones.let {ubi ->
+                //ubi.stream().
+
+            }
+
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
                 factory = { context ->
@@ -94,6 +102,11 @@ fun GetMapaScreen(
                                 marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
                                 this@apply.overlays.add(marker)
                                 this@apply.invalidate()
+
+                                /*TODO: SACAR EL GEOPOINT QUE SE ESTÁ METIENDO -> EJEMPLO EN CASA*/
+
+                                //val newGeoPoint = GeoPoint()
+                                //onAdd(newGeoPoint)
                                 return true
                             }
 

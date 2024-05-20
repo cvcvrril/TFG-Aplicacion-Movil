@@ -3,6 +3,8 @@ package com.example.aplicacionmovilinesmr.ui.screens.ubicaciones
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aplicacionmovilinesmr.data.sources.remote.managerds.UserManager
+import com.example.aplicacionmovilinesmr.domain.usecases.AddUbicacionUseCase
+import com.example.aplicacionmovilinesmr.domain.usecases.DeleteUbicacionUseCase
 import com.example.aplicacionmovilinesmr.domain.usecases.GetUbicacionesUseCase
 import com.example.aplicacionmovilinesmr.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UbicacionesViewModel @Inject constructor(
     private val getUbicacionesUseCase: GetUbicacionesUseCase,
+    private val deleteUbicacionUseCase: DeleteUbicacionUseCase,
     private val userManager: UserManager,
 ) : ViewModel(){
 
@@ -41,6 +44,43 @@ class UbicacionesViewModel @Inject constructor(
             is UbicacionesEvent.GetUbicaciones -> {
                 getUbicaciones()
             }
+
+            is UbicacionesEvent.DeleteUbicacion -> {
+                deleteUbicacion(event.id)
+            }
+        }
+    }
+
+    private fun deleteUbicacion(id: Int) {
+        _uiState.update { it.copy(loading = true) }
+        viewModelScope.launch {
+            deleteUbicacionUseCase.invoke(id)
+                .collect{res ->
+                    when(res){
+                        is NetworkResult.Error -> _uiState.update {
+                            it.copy(
+                                error = res.message,
+                                loading = false,
+                            )
+                        }
+                        is NetworkResult.Loading -> _uiState.update {
+                            it.copy(loading = false)
+                        }
+                        is NetworkResult.Success -> {
+                            res.data?.let {ubicaciones ->
+                                _uiState.update {
+                                    it.copy(
+                                        error = "Ubicación eliminada con éxito.",
+                                        loading = true,
+                                    )
+                                }
+                                getUbicaciones()
+                            }
+
+                        }
+                    }
+
+                }
         }
     }
 

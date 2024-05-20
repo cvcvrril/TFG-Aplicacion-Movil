@@ -25,4 +25,21 @@ class UbiRepository @Inject constructor(
             emit(res)
         }.flowOn(dispatcher)
     }
+
+    fun deleteUbicacion(id: Int) : Flow<NetworkResult<Unit>>{
+        return flow {
+            emit(NetworkResult.Loading())
+            val res = remoteDataSource.deleteUbicacion(id)
+            emit(res)
+        }.flowOn(dispatcher)
+    }
+
+    fun addUbicacion(newUbi : Ubi) : Flow<NetworkResult<Unit>>{
+        return flow {
+            emit(NetworkResult.Loading())
+            val res = remoteDataSource.addUbicacion(newUbi)
+            emit(res)
+        }.flowOn(dispatcher)
+    }
+
 }
