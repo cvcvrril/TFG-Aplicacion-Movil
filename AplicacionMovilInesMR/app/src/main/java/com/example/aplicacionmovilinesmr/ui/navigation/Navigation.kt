@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.aplicacionmovilinesmr.ui.screens.configscreen.ConfigScreen
 import com.example.aplicacionmovilinesmr.ui.screens.login.LoginScreen
 import com.example.aplicacionmovilinesmr.ui.screens.mapa.MapaScreen
 import com.example.aplicacionmovilinesmr.ui.screens.perfil.PerfilScreen
@@ -64,6 +65,7 @@ fun Navigation() {
             ConstantesPantallas.PERFIL_PANTALLA
         ){
             PerfilScreen (
+                toConfig = {navController.navigate(ConstantesPantallas.CONFIG_PANTALLA)},
                 bottomNavigationBar = {
                     BottomBar(navController = navController,
                         screens = screensBottomBar
@@ -74,7 +76,9 @@ fun Navigation() {
         composable(
             ConstantesPantallas.CONFIG_PANTALLA
         ){
-
+            ConfigScreen(
+                toLogout = {navController.navigate(ConstantesPantallas.LOGIN_PANTALLA)}
+            )
         }
     }
 }

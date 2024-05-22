@@ -49,6 +49,7 @@ import com.example.aplicacionmovilinesmr.R
 fun PerfilScreen(
     viewModel: PerfilViewModel = hiltViewModel(),
     bottomNavigationBar: @Composable () -> Unit = {},
+    toConfig: () -> Unit,
 ) {
 
     val state = viewModel.uiState.collectAsStateWithLifecycle()
@@ -56,6 +57,7 @@ fun PerfilScreen(
     GetPerfilScreen(
         state = state.value,
         bottomNavigationBar = bottomNavigationBar,
+        toConfig = toConfig,
     )
 
 }
@@ -64,6 +66,7 @@ fun PerfilScreen(
 fun GetPerfilScreen(
     state: PerfilState,
     bottomNavigationBar: @Composable () -> Unit = {},
+    toConfig: () -> Unit,
 ) {
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -97,7 +100,7 @@ fun GetPerfilScreen(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.End
             ) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { toConfig() }) {
                     Icon(
                         imageVector = Icons.Outlined.Settings,
                         contentDescription = "Settings"

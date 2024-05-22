@@ -121,7 +121,6 @@ class MapaViewModel @Inject constructor(
 
                             }
                         }
-
                     }
             }
         }

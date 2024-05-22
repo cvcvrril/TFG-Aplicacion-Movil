@@ -30,6 +30,12 @@ class TokenManager @Inject constructor(@ApplicationContext private val context: 
         }
     }
 
+    suspend fun deleteRefreshToken() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(refreshtoken)
+        }
+    }
+
     fun getAccessToken(): Flow<String?> {
         return context.dataStore.data.map { preferences ->
             preferences[accessToken]
@@ -47,4 +53,5 @@ class TokenManager @Inject constructor(@ApplicationContext private val context: 
             preferences.remove(accessToken)
         }
     }
+
 }

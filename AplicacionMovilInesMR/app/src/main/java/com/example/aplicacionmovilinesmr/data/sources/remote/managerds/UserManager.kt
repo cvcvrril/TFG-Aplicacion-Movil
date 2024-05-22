@@ -26,4 +26,16 @@ class UserManager @Inject constructor(@ApplicationContext private val context: C
             preferences[idUser] = id
         }
     }
+
+    suspend fun deleteIdUser(){
+        context.dataStore.edit {preferences ->
+            preferences.remove(idUser)
+        }
+    }
+
+    suspend fun deleteEverything(){
+        context.dataStore.edit {preferences ->
+            preferences.clear()
+        }
+    }
 }
