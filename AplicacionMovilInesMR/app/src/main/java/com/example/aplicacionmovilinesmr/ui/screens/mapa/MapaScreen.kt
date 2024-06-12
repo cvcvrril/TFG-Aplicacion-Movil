@@ -3,6 +3,7 @@ package com.example.aplicacionmovilinesmr.ui.screens.mapa
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.LocationManager
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -78,12 +79,7 @@ fun GetMapaScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            val DEFAULT_ZOOM = 10
-
-            val ubicaciones = state.ubicaciones.let {ubi ->
-                //ubi.stream().
-
-            }
+            val DEFAULT_ZOOM = 15
 
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
@@ -107,21 +103,15 @@ fun GetMapaScreen(
                                 this@apply.overlays.add(marker)
                                 this@apply.invalidate()
 
-                                /*TODO: SACAR EL GEOPOINT QUE SE ESTÁ METIENDO -> EJEMPLO EN CASA*/
-
                                 val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
                                 val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
 
                                 if (location != null) {
 
+                                    Log.i("Ubicacion", "lat: " + location.latitude + "long: " + location.longitude)
                                     val newGeoPoint = GeoPoint(location.latitude, location.longitude)
                                     onAdd(newGeoPoint)
-                                    //controller.setCenter(GeoPoint(location.latitude, location.longitude))
                                 }
-
-
-
-
                                 return true
                             }
 

@@ -1,4 +1,7 @@
 package com.example.aplicacionmovilinesmr.ui.screens.forgotPassword
 
-class ForgotPasswordState {
-}
+data class ForgotPasswordState (
+    val error: String? = null,
+    val loading: Boolean = false,
+    val email: String = "",
+)

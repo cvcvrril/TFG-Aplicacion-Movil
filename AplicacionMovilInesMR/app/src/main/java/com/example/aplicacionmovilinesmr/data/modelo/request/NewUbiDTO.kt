@@ -1,8 +1,8 @@
 package com.example.aplicacionmovilinesmr.data.modelo.request
 
 data class NewUbiDTO(
-    val long: Double,
     val lat: Double,
+    val lon: Double,
     val idUser: Int = 0,
 ) {
 }

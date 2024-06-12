@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="smallmedium_padding">8dp</dimen>
+    <dimen name="smallmedium_padding_8">8dp</dimen>
+    <dimen name="medium_padding_16">16dp</dimen>
+    <dimen name="normal_spacer_20">20dp</dimen>
+    <dimen name="normal_spacer_40">40dp</dimen>
 </resources>

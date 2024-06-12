@@ -1,5 +1,6 @@
 package com.example.aplicacionmovilinesmr.domain.modelo
 
+import android.net.Uri
 import com.example.aplicacionmovilinesmr.data.modelo.entities.ProfileEntity
 
 data class Profile(
@@ -11,4 +12,4 @@ data class Profile(
     val image: String,
 )
 
-fun Profile.toProfileEntity() : ProfileEntity = ProfileEntity(id, username, nombreCompleto, email, descripcion, image)
+fun Profile.toProfileEntity() : ProfileEntity = ProfileEntity(id, username, nombreCompleto, email, descripcion, image.toString())

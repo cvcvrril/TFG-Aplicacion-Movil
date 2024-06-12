@@ -1,4 +1,8 @@
 package com.example.aplicacionmovilinesmr.ui.screens.forgotPassword
 
-class ForgotPasswordEvent {
+sealed class ForgotPasswordEvent {
+
+    object ErrorVisto : ForgotPasswordEvent()
+    class OnEmailChange(val email: String): ForgotPasswordEvent()
+    class ForgotPassword() : ForgotPasswordEvent()
 }

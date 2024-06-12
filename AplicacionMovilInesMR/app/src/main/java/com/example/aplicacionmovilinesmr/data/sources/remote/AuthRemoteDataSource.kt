@@ -1,17 +1,20 @@
 package com.example.aplicacionmovilinesmr.data.sources.remote
 
+import com.example.aplicacionmovilinesmr.data.repositories.ProfileRepository
 import com.example.aplicacionmovilinesmr.data.sources.remote.managerds.TokenManager
 import com.example.aplicacionmovilinesmr.data.sources.remote.managerds.UserManager
 import com.example.aplicacionmovilinesmr.domain.modelo.Credential
+import com.example.aplicacionmovilinesmr.domain.modelo.toProfileEntity
 import com.example.aplicacionmovilinesmr.utils.NetworkResult
 import com.example.aprobarines.data.modelo.response.AuthorizacionResponse
-import com.example.aprobarines.data.modelo.response.CredentialResponse
+import com.example.aprobarines.data.modelo.response.toProfile
 import javax.inject.Inject
 
 class AuthRemoteDataSource @Inject constructor(
     private val service: AuthService,
     private val tokenManager: TokenManager,
     private val userManager: UserManager,
+    private val repository: ProfileRepository,
 ) {
 
     suspend fun login(username : String, password : String) : NetworkResult<AuthorizacionResponse>{
@@ -27,6 +30,10 @@ class AuthRemoteDataSource @Inject constructor(
                         tokenManager.saveAccessToken(accessToken)
                         refreshToken?.let { it1 -> tokenManager.saveRefreshToken(it1) }
                         userManager.saveIdUser(idUser.toString())
+                        val userProfile = body.toProfile()
+                        if (repository.getUserProfileByUsername(userProfile.username).isEmpty()) {
+                            repository.addUserProfile(userProfile.toProfileEntity())
+                        }
                         return NetworkResult.Success(body)
                     }else{
                         return NetworkResult.Error("El Access Token recibido es nulo.")
@@ -64,6 +71,19 @@ class AuthRemoteDataSource @Inject constructor(
             if (response.isSuccessful) {
                 NetworkResult.Success(Unit)
             } else {
+                NetworkResult.Error("${response.code()} ${response.message()}")
+            }
+        }catch (e: Exception) {
+            NetworkResult.Error(e.message ?: e.toString())
+        }
+    }
+
+    suspend fun darBaja(email: String) : NetworkResult<Unit>{
+        return try {
+            val response = service.darBaja(email)
+            if (response.isSuccessful){
+                NetworkResult.Success(Unit)
+            }else{
                 NetworkResult.Error("${response.code()} ${response.message()}")
             }
         }catch (e: Exception) {

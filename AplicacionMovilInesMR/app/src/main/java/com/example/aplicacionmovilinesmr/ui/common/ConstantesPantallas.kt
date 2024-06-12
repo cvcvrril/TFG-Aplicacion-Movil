@@ -7,4 +7,5 @@ object ConstantesPantallas {
     const val UBICACIONES_PANTALLA = "ubicaciones"
     const val PERFIL_PANTALLA = "perfil"
     const val CONFIG_PANTALLA = "config"
+    const val FORGOTPASSWORD_PANTALLA = "forgotPassword"
 }

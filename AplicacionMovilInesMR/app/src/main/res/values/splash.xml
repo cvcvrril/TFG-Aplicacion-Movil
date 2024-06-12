@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MySplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#9B4444</item>
+        <item name="windowSplashScreenAnimatedIcon">@style/Theme.AplicacionMovilInesMr</item>
+        <item name="postSplashScreenTheme">@style/Theme.AplicacionMovilInesMr</item>
+    </style>
+</resources>

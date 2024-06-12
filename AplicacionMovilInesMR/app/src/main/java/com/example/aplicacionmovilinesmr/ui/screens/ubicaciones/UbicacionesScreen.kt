@@ -23,7 +23,6 @@ import androidx.compose.material3.DismissState
 import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -93,8 +92,7 @@ fun GetUbicaciones(
             Column(
                 Modifier
                     .padding(innerPadding)
-                    .fillMaxSize()
-                    .background(Color.Gray),
+                    .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -109,13 +107,12 @@ fun GetUbicaciones(
             ) {
                 items(
                     items = state.ubicaciones,
-                    key = { item -> item.id }
+                    key = { ubicacion -> ubicacion.id }
                 ) { ubicacion ->
                     SwipeToDeleteContainer(
                         item = ubicacion,
-                        onDelete = {
-                            it.id?.let{it1 -> onDelete(it1)}
-                        }) { ubicacion ->
+                        onDelete = {onDelete(ubicacion.id) }
+                    ) { ubicacion ->
                         UbicacionItem(
                             ubi = ubicacion,
                             modifier = Modifier.animateItemPlacement(
@@ -134,36 +131,38 @@ fun GetUbicaciones(
 @Composable
 fun UbicacionItem(
     ubi: UbiDTO,
-    modifier: Modifier = Modifier.background(MaterialTheme.colorScheme.background)
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(
-                dimensionResource(id = R.dimen.smallmedium_padding)
-            )
+                dimensionResource(id = R.dimen.smallmedium_padding_8)
+            ),
     ) {
         Row(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.smallmedium_padding))
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.smallmedium_padding_8))
         ) {
             Text(
                 text = ubi.id.toString(),
                 modifier = Modifier.weight(weight = 0.3F),
             )
-            Text(
-                text = ubi.nombre.ifEmpty { "Ubicación sin nombre" },
-                modifier = Modifier.weight(weight = 0.3F),
-            )
+            ubi.nombre?.let {
+                Text(
+                    text = it.ifEmpty { "Ubicación sin nombre" },
+                    modifier = Modifier.weight(weight = 0.3F),
+                )
+            }
         }
         Row(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.smallmedium_padding))
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.smallmedium_padding_8))
         ) {
             Text(
                 text = ubi.lat.toString(),
                 modifier = Modifier.weight(weight = 0.5F)
             )
             Text(
-                text = ubi.long.toString(),
+                text = ubi.lon.toString(),
                 modifier = Modifier.weight(weight = 0.5F)
             )
         }
@@ -174,7 +173,7 @@ fun UbicacionItem(
 @Composable
 fun <T : Any> SwipeToDeleteContainer(
     item: T,
-    onDelete: (UbiDTO) -> Unit,
+    onDelete: (T) -> Unit,
     animationDuration: Int = 500,
     content: @Composable (T) -> Unit
 ) {
@@ -192,6 +191,13 @@ fun <T : Any> SwipeToDeleteContainer(
             }
         }
     )
+
+    LaunchedEffect(key1 = isRemoved) {
+        if (isRemoved) {
+            delay(animationDuration.toLong())
+            onDelete(item)
+        }
+    }
 
     AnimatedVisibility(
         visible = !isRemoved,
@@ -226,7 +232,7 @@ fun DeleteBackground(
         modifier = Modifier
             .fillMaxSize()
             .background(color)
-            .padding(16.dp)
+            .padding(dimensionResource(id = R.dimen.medium_padding_16))
     ) {
         Icon(
             imageVector = Icons.Default.Delete,

@@ -5,12 +5,13 @@ import com.example.aplicacionmovilinesmr.domain.modelo.dto.UbiDTO
 
 data class Ubi(
     val id: Int = 0,
-    val long: Double,
     val lat: Double,
+    val lon: Double,
     var idUser: Int = 0,
+    val nombre: String? = ""
 ){
-    fun toUbiDTO(): UbiDTO = UbiDTO(id, long, lat)
-    fun toNewUbiDTO() : NewUbiDTO = NewUbiDTO(long, lat, idUser)
+    fun toUbiDTO(): UbiDTO = UbiDTO(id, lat, lon)
+    fun toNewUbiDTO() : NewUbiDTO = NewUbiDTO(lat, lon, idUser)
 
 }
 

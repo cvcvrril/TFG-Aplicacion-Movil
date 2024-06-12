@@ -10,6 +10,7 @@ android {
     namespace = "com.example.aplicacionmovilinesmr"
     compileSdk = 34
 
+
     defaultConfig {
         applicationId = "com.example.aplicacionmovilinesmr"
         minSdk = 26
@@ -21,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
 
     buildTypes {
@@ -30,7 +32,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField ("String", "BASEURLAUTH", "\"http://192.168.1.138:8081/auth/\"")
+            isDebuggable = false
         }
+        debug{
+            buildConfigField ("String", "BASEURLAUTH", "\"http://192.168.1.138:8081/auth/\"")
+            isDebuggable = true
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -41,6 +50,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -50,6 +60,8 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+
 }
 
 dependencies {
@@ -90,6 +102,8 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android")
+
     implementation ("com.google.dagger:hilt-android:2.50")
     kapt ("com.google.dagger:hilt-android-compiler:2.50")
     kapt ("androidx.hilt:hilt-compiler:1.1.0")
@@ -101,11 +115,8 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
 
-    //implementation("com.tomtom.sdk.maps:map-display:1.2.0")
-
-    //implementation("org.maplibre.gl:android-sdk:9.2.1")
-
-    //implementation("com.mapbox.maps:android:10.14.0")
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     implementation("org.osmdroid:osmdroid-android:6.1.14")
+
 }

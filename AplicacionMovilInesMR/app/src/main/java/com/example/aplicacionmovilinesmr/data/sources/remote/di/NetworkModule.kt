@@ -8,6 +8,7 @@ import com.example.aplicacionmovilinesmr.data.sources.remote.AuthService
 import com.example.aplicacionmovilinesmr.data.sources.remote.UbiService
 import com.example.aplicacionmovilinesmr.data.sources.remote.utils.AuthAuthenticator
 import com.example.aplicacionmovilinesmr.data.sources.remote.utils.AuthInterceptor
+import com.example.aplicacionmovilinesmr.utils.Constantes
 import com.google.gson.GsonBuilder
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -23,7 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
-
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -60,6 +60,7 @@ object NetworkModule {
 
     val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data_store")
 
+
     @Singleton
     @Provides
     fun provideRetrofitAuth(
@@ -68,12 +69,7 @@ object NetworkModule {
         gsonConverterFactory: GsonConverterFactory,
     ): Retrofit {
         return Retrofit.Builder()
-            //.baseUrl("http://192.168.1.138:8081/auth/")
-            //.baseUrl("http://192.168.22.104:8081/auth/")
-            .baseUrl("http://192.168.104.104:8081/auth/")
-            //.baseUrl("http://192.168.2.233:8081/auth/")
-            //.baseUrl("http://192.168.1.140:8081/auth/")
-            //.baseUrl("http://172.20.10.2:8081/auth/")
+            .baseUrl(Constantes.BASE_URL_AUTH)
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .addConverterFactory(gsonConverterFactory)
@@ -85,19 +81,15 @@ object NetworkModule {
     @Named("ubi")
     fun provideRetrofitUbi(
         okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory,
+        gsonConverterFactory: GsonConverterFactory,
     ): Retrofit {
         return Retrofit.Builder()
-            //.baseUrl("http://192.168.1.138:8082/ubi/")
-            //.baseUrl("http://192.168.22.104:8082/ubi/")
-            .baseUrl("http://192.168.104.104:8082/ubi/")
-            //.baseUrl("http://192.168.2.233:8082/ubi/")
-            //.baseUrl("http://192.168.1.140:8082/ubi/")
-            //.baseUrl("http://172.20.10.2:8081/auth/")
+            .baseUrl(Constantes.BASE_URL_UBI)
             .client(okHttpClient)
-            .addConverterFactory(moshiConverterFactory)
+            .addConverterFactory(gsonConverterFactory)
             .build()
     }
+
 
     @Singleton
     @Provides

@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.aplicacionmovilinesmr.ui.screens.configscreen.ConfigScreen
+import com.example.aplicacionmovilinesmr.ui.screens.forgotPassword.ForgotPasswordScreen
 import com.example.aplicacionmovilinesmr.ui.screens.login.LoginScreen
 import com.example.aplicacionmovilinesmr.ui.screens.mapa.MapaScreen
 import com.example.aplicacionmovilinesmr.ui.screens.perfil.PerfilScreen
@@ -33,12 +34,26 @@ fun Navigation() {
                     }
                 }
             },
-                navController = navController)
+                toRegistro = { navController.navigate(ConstantesPantallas.REGISTRO_PANTALLA) },
+                toForgotPassword = { navController.navigate(ConstantesPantallas.FORGOTPASSWORD_PANTALLA) })
         }
         composable(
             ConstantesPantallas.REGISTRO_PANTALLA
         ) {
-            RegistroScreen(navController = navController) {}
+            RegistroScreen(
+                toLogin = {
+                    navController.navigate(ConstantesPantallas.LOGIN_PANTALLA)
+                }
+            )
+        }
+        composable(
+            ConstantesPantallas.FORGOTPASSWORD_PANTALLA
+        ){
+            ForgotPasswordScreen(
+                toLogin = {
+                    navController.navigate(ConstantesPantallas.LOGIN_PANTALLA)
+                }
+            )
         }
         composable(
             ConstantesPantallas.MAPA_PANTALLA

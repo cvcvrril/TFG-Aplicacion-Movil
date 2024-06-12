@@ -1,5 +1,6 @@
 package com.example.aplicacionmovilinesmr.data.modelo.entities
 
+import android.net.Uri
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity

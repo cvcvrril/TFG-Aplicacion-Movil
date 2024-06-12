@@ -18,8 +18,6 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(
     private val remoteDataSource: AuthRemoteDataSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
-    private val tokenManager: TokenManager,
-    private val userManager: UserManager,
 ) {
 
     fun login(username: String, password: String) : Flow<NetworkResult<AuthorizacionResponse>> {
@@ -35,6 +33,22 @@ class AuthRepository @Inject constructor(
         return flow {
             emit(NetworkResult.Loading())
             val res = remoteDataSource.registro(credential)
+            emit(res)
+        }.flowOn(dispatcher)
+    }
+
+    fun darBaja(email: String) : Flow<NetworkResult<Unit>>{
+        return flow {
+            emit(NetworkResult.Loading())
+            val res = remoteDataSource.darBaja(email)
+            emit(res)
+        }.flowOn(dispatcher)
+    }
+
+    fun forgotPassword(email: String) : Flow<NetworkResult<Unit>>{
+        return flow {
+            emit(NetworkResult.Loading())
+            val res = remoteDataSource.forgotPassword(email)
             emit(res)
         }.flowOn(dispatcher)
     }

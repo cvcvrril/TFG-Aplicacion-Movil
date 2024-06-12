@@ -5,9 +5,9 @@ import org.osmdroid.util.GeoPoint
 
 data class UbiDTO (
     val id: Int,
-    val long: Double = 0.0,
+    val lon: Double = 0.0,
     val lat: Double = 0.0,
-    val nombre: String = ""
+    val nombre: String? = ""
 ){
 
 
@@ -16,9 +16,9 @@ data class UbiDTO (
         fun fromUbi(ubi: Ubi): UbiDTO {
             return UbiDTO(
                 id = ubi.id,
-                long = ubi.long,
+                lon = ubi.lon,
                 lat = ubi.lat,
-                nombre = ""
+                nombre = ubi.nombre
             )
         }
     }

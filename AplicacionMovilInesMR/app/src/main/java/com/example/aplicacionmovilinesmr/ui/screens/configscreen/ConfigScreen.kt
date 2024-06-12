@@ -1,8 +1,6 @@
 package com.example.aplicacionmovilinesmr.ui.screens.configscreen
 
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Android
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -26,7 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,10 +42,13 @@ fun ConfigScreen(
 
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
+
+
+
     GetConfigScreen(
         state = state.value,
-        handleEvent = viewModel::handleEvent,
         doLogout = { viewModel.handleEvent(ConfigEvent.DoLogout) },
+        doBaja = { viewModel.handleEvent(ConfigEvent.DoBaja) },
         toLogout = toLogout,
     )
 
@@ -54,19 +57,19 @@ fun ConfigScreen(
 @Composable
 fun GetConfigScreen(
     state: ConfigState,
-    handleEvent: KFunction1<ConfigEvent, Unit>,
     doLogout: () -> Unit,
-    toLogout: () -> Unit
+    doBaja: () -> Unit,
+    toLogout: () -> Unit,
 ) {
 
     var shouldShowDialogLogout by remember { mutableStateOf(false) }
     var shouldShowDialogBaja by remember { mutableStateOf(false) }
     var shouldShowDialogAbout by remember { mutableStateOf(false) }
+    var openUri by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
             .padding(end = 16.dp, top = 10.dp, start = 16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start,
@@ -75,23 +78,8 @@ fun GetConfigScreen(
             modifier = Modifier
                 .padding(start = 16.dp, bottom = 16.dp)
         ) {
-            CambioTemaCheckbox(
-                handleEvent = handleEvent,
-                state = state,
-            )
-        }
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
-        ) {
-            Text(text = "Hola, prueba")
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
-        ) {
-            Text(text = "Esto es otra prueba")
+            Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "Account")
+            Text(text = "Acerca de la cuenta")
             Spacer(modifier = Modifier.height(16.dp))
         }
         Row {
@@ -110,10 +98,27 @@ fun GetConfigScreen(
                 )
             }
         }
+        Row(
+            modifier = Modifier
+                .padding(start = 16.dp, bottom = 16.dp)
+        ) {
+            Icon(imageVector = Icons.Default.Android, contentDescription = "Account")
+            Text(text = "Acerca de la aplicación")
+            Spacer(modifier = Modifier.height(16.dp))
+        }
         Row {
             TextButton(onClick = { shouldShowDialogAbout = true }) {
                 Text(text = "Sobre la aplicación")
             }
+        }
+        Row {
+            TextButton(onClick = { openUri = true }) {
+                Text(text = "Documentación")
+            }
+        }
+
+        if (openUri){
+            PantallaUriDoc()
         }
 
         if (shouldShowDialogLogout) {
@@ -121,56 +126,42 @@ fun GetConfigScreen(
                 onDismissRequest = { shouldShowDialogLogout = false },
                 onConfirmation = {
                     shouldShowDialogLogout = false
-                    toLogout()
                     doLogout()
+                    toLogout()
+                },
+            )
+        }
+
+        if (shouldShowDialogBaja) {
+            DialogoAlertaBaja(
+                onDismissRequest = { shouldShowDialogLogout = false },
+                onConfirmation = {
+                    shouldShowDialogLogout = false
+                    doBaja()
+                    toLogout()
                 },
             )
         }
 
         if (shouldShowDialogAbout) {
             AboutTheAppDialog(
-                onDismissRequest = {shouldShowDialogAbout = false }
-            )
-        }
-
-        if (shouldShowDialogBaja) {
-            DialogoAlertaBaja(
-                onDismissRequest = {shouldShowDialogLogout = false },
-                onConfirmation = {
-                    shouldShowDialogLogout = false
-                    toLogout()
-                    doLogout()
-                },
+                onDismissRequest = { shouldShowDialogAbout = false }
             )
         }
     }
 }
 
 @Composable
-fun CambioTemaCheckbox(
-    state: ConfigState,
-    handleEvent: KFunction1<ConfigEvent, Unit>,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(text = "Cambiar el tema de la aplicación")
-        Checkbox(checked = state.tema, onCheckedChange = { change ->
-            handleEvent(ConfigEvent.OnTemaChange(change))
-        }
-        )
-    }
-}
+fun PantallaUriDoc(){
+    val localUriHandler = LocalUriHandler.current
+    localUriHandler.openUri("https://cvcvrril.github.io/MapEatDocs/")
 
+}
 
 @Composable
 fun DialogoAlertaLogout(
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
-    //toLogout: () -> Unit,
-    //doLogout: () -> Unit,
 ) {
     AlertDialog(
         title = {
@@ -194,8 +185,6 @@ fun DialogoAlertaLogout(
 fun DialogoAlertaBaja(
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
-    //toLogout: () -> Unit,
-    //doLogout: () -> Unit,
 ) {
     AlertDialog(
         title = {
@@ -206,9 +195,6 @@ fun DialogoAlertaBaja(
             TextButton(onClick = onConfirmation) {
                 Text("Aceptar")
             }
-            /*TODO: pasar el método para dar de baja la cuenta*/
-            //toLogout()
-            //doLogout
         },
         dismissButton = {
             TextButton(onClick = onDismissRequest) {
@@ -252,65 +238,4 @@ fun AboutTheAppDialog(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun previewConfigScreen(
-
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(end = 16.dp, top = 10.dp, start = 16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start,
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
-        ) {
-            //CambioTemaCheckbox()
-        }
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
-        ) {
-            Text(text = "Hola, prueba")
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
-        ) {
-            Text(text = "Esto es otra prueba")
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        Row {
-            TextButton(onClick = { /*TODO*/ }) {
-                Text(
-                    text = "Cerrar sesión",
-                    color = Color.Red
-                )
-            }
-        }
-        Row {
-            TextButton(onClick = { /*TODO*/ }) {
-                Text(
-                    text = "Darte de baja",
-                    color = Color.Red
-                )
-            }
-        }
-        Row {
-            TextButton(onClick = {
-                //shouldShowDialogAbout.value = true
-            }) {
-                Text(text = "Sobre la aplicación")
-            }
-        }
-
-    }
-
 }

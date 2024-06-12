@@ -19,6 +19,9 @@ interface AuthService {
     suspend fun forgotPassword(@Query("email") email: String): Response<Unit>
 
     @GET("refreshToken")
-    suspend fun refreshToken(@Query("token") token: String): Response<Unit>
+    suspend fun refreshToken(@Query("token") token: String): Response<String>
+
+    @POST("darBaja")
+    suspend fun darBaja(@Query("email") email: String) : Response<Unit>
 
 }
